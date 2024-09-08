@@ -1,38 +1,37 @@
 import React, { useState } from "react";
 
-function Login() {
+const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
   const handleLogin = (e) => {
     e.preventDefault();
-    // Add login logic here, such as API call
     console.log("Login submitted: ", { email, password });
+    // Add your login logic here
   };
 
   return (
-    <form onSubmit={handleLogin}>
-      <div>
+    <div>
+      <h2>Login</h2>
+      <form onSubmit={handleLogin}>
         <label>Email:</label>
         <input
           type="email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
-          required
         />
-      </div>
-      <div>
+        <br />
         <label>Password:</label>
         <input
           type="password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
-          required
         />
-      </div>
-      <button type="submit">Login</button>
-    </form>
+        <br />
+        <button type="submit">Login</button>
+      </form>
+    </div>
   );
-}
+};
 
 export default Login;
