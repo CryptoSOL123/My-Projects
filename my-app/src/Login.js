@@ -1,45 +1,37 @@
-import React, { useState } from "react";
-import "./Login.css";
+import React, { useState } from 'react';
+import axios from 'axios';
 
-const Login = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+function Login() {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    // Handle login logic here (e.g., send a request to your backend)
-    console.log("Login submitted:", { email, password });
-    // Clear form fields after submission
-    setEmail("");
-    setPassword("");
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await axios.post('http://localhost:5000/login', { email, password });
+      console.log('Login successful:', response.data);
+      // Redirect to dashboard or handle login success
+    } catch (error) {
+      console.error('Error logging in:', error);
+    }
   };
 
   return (
-    <div className="login-container">
+    <div>
       <h2>Login</h2>
-      <form className="login-form" onSubmit={handleSubmit}>
-        <label htmlFor="email">Email</label>
-        <input
-          type="email"
-          id="email"
-          name="email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          required
-        />
-        <label htmlFor="password">Password</label>
-        <input
-          type="password"
-          id="password"
-          name="password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          required
-        />
+      <form onSubmit={handleSubmit}>
+        <label>
+          Email:
+          <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} />
+        </label>
+        <label>
+          Password:
+          <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
+        </label>
         <button type="submit">Login</button>
       </form>
     </div>
   );
-};
+}
 
 export default Login;
